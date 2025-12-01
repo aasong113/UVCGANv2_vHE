@@ -32,6 +32,7 @@ class ImageDomainFolder(Dataset):
         domain        = 'a',
         split         = SPLIT_TRAIN,
         transform     = None,
+        inference = False,
         **kwargs
     ):
         super().__init__(**kwargs)
@@ -41,6 +42,7 @@ class ImageDomainFolder(Dataset):
         self._path      = os.path.join(path, subdir)
         self._imgs      = ImageDomainFolder.find_images_in_dir(self._path)
         self._transform = transform
+        self._inference = inference
 
     @staticmethod
     def find_images_in_dir(path):
@@ -65,12 +67,20 @@ class ImageDomainFolder(Dataset):
     def __len__(self):
         return len(self._imgs)
 
+    def set_inference(self, enabled=True):
+        self._inference = enabled
+
     def __getitem__(self, index):
         path   = self._imgs[index]
         result = default_loader(path)
+        #print(path)
 
         if self._transform is not None:
             result = self._transform(result)
 
-        return result
+
+        if getattr(self, '_inference', False):  # safe check
+            return (result, os.path.basename(path))
+        else:
+            return result
 

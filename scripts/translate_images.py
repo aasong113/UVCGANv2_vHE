@@ -7,6 +7,7 @@ import os
 import tqdm
 import numpy as np
 from PIL import Image
+import torch
 
 from uvcgan2.consts import MERGE_NONE
 from uvcgan2.eval.funcs import (
@@ -26,23 +27,29 @@ def parse_cmdargs():
 
     return parser.parse_args()
 
-def save_images(model, savedir, sample_counter, ext):
+def save_images(model, savedir, filenames, ext):
+    """Save model outputs using original filenames."""
     for (name, torch_image) in model.images.items():
         if torch_image is None:
             continue
 
-        for index in range(torch_image.shape[0]):
-            sample_index = sample_counter[name]
+        # model.images[name] is a batch of outputs: shape (N, C, H, W)
+        for idx in range(torch_image.shape[0]):
 
-            image = tensor_to_image(torch_image[index])
+            # ---- original filename corresponding to this output ----
+            original_name = filenames[idx]
+
+            # remove original extension, add new one later
+            base = os.path.splitext(original_name)[0]
+
+            # convert tensor → numpy uint8 image
+            image = tensor_to_image(torch_image[idx])
             image = np.round(255 * image).astype(np.uint8)
             image = Image.fromarray(image)
 
-            path  = os.path.join(savedir, name, f'sample_{sample_index}')
             for e in ext:
-                image.save(path + '.' + e)
-
-            sample_counter[name] += 1
+                out_path = os.path.join(savedir, name, f"{base}.{e}")
+                image.save(out_path)
 
 def dump_single_domain_images(
     model, data_it, domain, n_eval, batch_size, savedir, sample_counter, ext
@@ -52,10 +59,21 @@ def dump_single_domain_images(
     desc = f'Translating domain {domain}'
 
     for batch in tqdm.tqdm(data_it, desc = desc, total = steps):
-        model.set_input(batch, domain = domain)
+        #print(batch)
+        # batch = [(tensor, filename), (tensor, filename), ...]
+        #print(batch)
+        images, names = batch
+
+        # Convert list of tensors → batch tensor (N,C,H,W)
+        images = torch.stack(images, dim=0)
+
+        model.set_input(images, domain=domain)
+
+        # and store filenames in model or return them later
+        model.filenames = names
         model.forward_nograd()
 
-        save_images(model, savedir, sample_counter, ext)
+        save_images(model, savedir, names, ext)
 
 def dump_images(model, data_list, n_eval, batch_size, savedir, ext):
     # pylint: disable=too-many-arguments
@@ -71,6 +89,13 @@ def dump_images(model, data_list, n_eval, batch_size, savedir, ext):
             sample_counter, ext
         )
 
+# Custom Collate Function
+def inference_collate_fn(batch):
+    # batch: List[(Tensor, str)] → ([Tensor, Tensor, ...], [str, str, ...])
+    images = [item[0] for item in batch]
+    names  = [item[1] for item in batch]
+    return images, names
+
 def main():
     cmdargs = parse_cmdargs()
 
@@ -78,8 +103,37 @@ def main():
         cmdargs, merge_type = MERGE_NONE
     )
 
-    if not isinstance(data_list, (list, tuple)):
-        data_list = [ data_list, ]
+    # Set inference mode + patch DataLoader(s) with custom collate_fn
+    if isinstance(data_list, (list, tuple)):
+        new_list = []
+        for dl in data_list:
+            ds = dl.dataset
+            if hasattr(ds, 'set_inference'):
+                ds.set_inference(True)
+
+            new_dl = torch.utils.data.DataLoader(
+                ds,
+                batch_size=args.batch_size,
+                shuffle=False,
+                num_workers=dl.num_workers if hasattr(dl, "num_workers") else 0,
+                collate_fn=inference_collate_fn
+            )
+            new_list.append(new_dl)
+        data_list = new_list
+    else:
+        ds = data_list.dataset
+        if hasattr(ds, 'set_inference'):
+            ds.set_inference(True)
+
+        data_list = [
+            torch.utils.data.DataLoader(
+                ds,
+                batch_size=args.batch_size,
+                shuffle=False,
+                num_workers=data_list.num_workers if hasattr(data_list, "num_workers") else 0,
+                collate_fn=inference_collate_fn
+            )
+        ]
 
     savedir = get_eval_savedir(
         evaldir, 'images', cmdargs.model_state, cmdargs.split
@@ -91,5 +145,5 @@ def main():
     )
 
 if __name__ == '__main__':
-    main()
+    main() 
 
