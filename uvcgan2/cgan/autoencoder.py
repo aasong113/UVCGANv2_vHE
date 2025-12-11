@@ -8,6 +8,7 @@ from uvcgan2.models.generator         import construct_generator
 from .model_base import ModelBase
 from .named_dict import NamedDict
 from .funcs import set_two_domain_input
+import torch
 
 class Autoencoder(ModelBase):
 
@@ -125,6 +126,7 @@ class Autoencoder(ModelBase):
 
     def backward_generator_base(self, real, reco):
         loss = self.loss_fn(reco, real)
+        torch.autograd.set_detect_anomaly(True)
         loss.backward()
 
         return loss

@@ -49,7 +49,7 @@ def get_transfer_preset(cmdargs):
         return None
 
     base_model = (
-        '/home/durrlab/Desktop/Anthony/UGVSM/UVCGANv2_new/outdir/20251130_Inverted_Combined_BIT2HE_normal_kidney_all_Pretrain/'
+        '/home/durrlab/Desktop/Anthony/UGVSM/UVCGANv2_new/outdir/20251210_MUSEBLUE2HE_normal_kidney_all_Pretrain/'
         'model_m(autoencoder)_d(None)'
         f"_g({GEN_PRESETS[cmdargs.gen]['model']})_pretrain-{cmdargs.gen}"
     )
@@ -74,7 +74,7 @@ args_dict = {
                             'dataset': {
                 'name': 'cyclegan',
                 'domain': 'A',
-                'path': os.path.join(cmdargs.root_data_path, 'kidney_normal_BIT-invBIT_BIT'),
+                'path': os.path.join(cmdargs.root_data_path, 'normalized_MUSE_Blue_cleaned', 'inverted'),
             },
             'shape': (3, 512, 512),
             'transform_train': [

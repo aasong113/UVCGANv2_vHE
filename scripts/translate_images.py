@@ -71,6 +71,8 @@ def dump_single_domain_images(
 
         # and store filenames in model or return them later
         model.filenames = names
+
+        torch.autograd.set_detect_anomaly(True)
         model.forward_nograd()
 
         save_images(model, savedir, names, ext)
