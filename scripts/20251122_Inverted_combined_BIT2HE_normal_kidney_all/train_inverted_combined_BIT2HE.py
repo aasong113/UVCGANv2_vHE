@@ -158,7 +158,7 @@ args_dict = {
         f'{cmdargs.gen}-{cmdargs.head}_({cmdargs.no_pretrain}'
         f':{cmdargs.lambda_cyc}:{cmdargs.lambda_gp}:{cmdargs.lr_gen})'
     ),
-    'outdir' : os.path.join(ROOT_OUTDIR, '20251122_Inverted_Combined_BIT2HE_normal_kidney_all_Train'),
+    'outdir' : os.path.join(ROOT_OUTDIR, '20251201_Inverted_Combined_BIT2HE_normal_kidney_all_Train'),
     'log_level'  : 'DEBUG',
     'checkpoint' : 10,
 }
