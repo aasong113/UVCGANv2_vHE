@@ -7,7 +7,7 @@ from uvcgan2.utils.parsers import add_preset_name_parser, add_batch_size_parser
 
 def parse_cmdargs():
     parser = argparse.ArgumentParser(
-        description = '20251213_Inverted_Combined_BIT2HE_normal_duodenum_only_crypts_Train'
+        description = '20251216_Inverted_Combined_BIT2HE_normal_duodenum_only_crypts_Train'
     )
 
     add_preset_name_parser(parser, 'gen',  GEN_PRESETS, 'uvcgan2')
@@ -158,7 +158,7 @@ args_dict = {
         f'{cmdargs.gen}-{cmdargs.head}_({cmdargs.no_pretrain}'
         f':{cmdargs.lambda_cyc}:{cmdargs.lambda_gp}:{cmdargs.lr_gen})'
     ),
-    'outdir' : os.path.join(ROOT_OUTDIR, '20251213_Inverted_Combined_BIT2HE_normal_duodenum_only_crypts_Train'),
+    'outdir' : os.path.join(ROOT_OUTDIR, '20251216_Inverted_Combined_BIT2HE_normal_duodenum_only_crypts_Train'),
     'log_level'  : 'DEBUG',
     'checkpoint' : 10,
 }
