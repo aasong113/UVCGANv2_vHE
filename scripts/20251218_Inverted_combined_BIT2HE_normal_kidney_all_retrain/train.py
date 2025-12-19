@@ -49,7 +49,7 @@ def get_transfer_preset(cmdargs):
         return None
 
     base_model = (
-        '/home/durrlab/Desktop/Anthony/UGVSM/UVCGANv2_new/outdir/20251130_Inverted_Combined_BIT2HE_normal_kidney_all_Pretrain/'
+        '/home/durrlab/Desktop/Anthony/UGVSM/UVCGANv2_new/outdir/20251218_Inverted_Combined_BIT2HE_normal_kidney_all_Pretrain/'
         'model_m(autoencoder)_d(None)'
         f"_g({GEN_PRESETS[cmdargs.gen]['model']})_pretrain-{cmdargs.gen}"
     )
@@ -74,7 +74,7 @@ args_dict = {
                             'dataset': {
                 'name': 'cyclegan',
                 'domain': 'A',
-                'path': os.path.join(cmdargs.root_data_path, 'kidney_normal_BIT-invBIT_BIT'),
+                'path': os.path.join(cmdargs.root_data_path, 'kidney_normal_BIT_invBIT_BIT'),
             },
             'shape': (3, 512, 512),
             'transform_train': [
@@ -154,11 +154,11 @@ args_dict = {
     'steps_per_epoch' : 2000,
     'transfer'        : get_transfer_preset(cmdargs),
 # args
-    'label'  : (
-        f'{cmdargs.gen}-{cmdargs.head}_({cmdargs.no_pretrain}'
-        f':{cmdargs.lambda_cyc}:{cmdargs.lambda_gp}:{cmdargs.lr_gen})'
-    ),
-    'outdir' : os.path.join(ROOT_OUTDIR, '20251201_Inverted_Combined_BIT2HE_normal_kidney_all_Train'),
+    'label': (
+    f'{cmdargs.gen}-{cmdargs.head}_{cmdargs.no_pretrain}'
+    f'-{cmdargs.lambda_cyc}-{cmdargs.lambda_gp}-{cmdargs.lr_gen}'
+    ).replace('(', '-').replace(')', '-').replace(':', 'p'),
+    'outdir' : os.path.join(ROOT_OUTDIR, '20251218_Inverted_combined_BIT2HE_normal_kidney_all_Train'),
     'log_level'  : 'DEBUG',
     'checkpoint' : 10,
 }
