@@ -37,13 +37,13 @@ In short, the procedure to adapt the `uvcgan2` to your problem is as follows:
    For reference, the format of the CelebA-HQ directory is:
 
 ```bash
-    CelebA-HQ/          # Name of the dataset
-        train/
-            male/       # Name of the first domain
-            female/     # Name of the second domain
-        val/
-            male/
-            female/
+    MUSE-BIT/          # Name of the dataset
+        trainA/
+        testA/
+    FFPE-HE/          # Name of the dataset
+        trainB/
+        testB/
+
 ```
 
    where the directories named `male/` and `female/` store the corresponding
