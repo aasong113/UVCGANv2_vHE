@@ -1,6 +1,8 @@
 # UVCGAN v2: Virtual H&E Staining
 <img width="2025" height="660" alt="vHE_BIT_MUSE_Figure_V5" src="https://github.com/user-attachments/assets/c97e35b8-93cc-4a91-811d-c0a5d113da1d" />
+
 Proceedings: https://opg.optica.org/abstract.cfm?URI=NTM-2025-NTh1C.3
+
 Full Manuscript in Progress. 
 
 This package provides an implementation of the `UVCGAN v2: An Improved
