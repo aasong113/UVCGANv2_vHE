@@ -1,4 +1,6 @@
 # UVCGAN v2: Virtual H&E Staining
+<img width="2025" height="660" alt="vHE_BIT_MUSE_Figure_V5" src="https://github.com/user-attachments/assets/c97e35b8-93cc-4a91-811d-c0a5d113da1d" />
+
 
 This package provides an implementation of the `UVCGAN v2: An Improved
 Cycle-Consistent GAN for Unpaired Image-to-Image Translation` applied to Virtual H&E Staining of Back Illumination Interference Tomography Images of Raw Tissue
