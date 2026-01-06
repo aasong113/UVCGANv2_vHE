@@ -105,6 +105,10 @@ def main():
         cmdargs, merge_type = MERGE_NONE
     )
 
+    print(evaldir)
+    return
+    
+
     # Set inference mode + patch DataLoader(s) with custom collate_fn
     if isinstance(data_list, (list, tuple)):
         new_list = []
@@ -140,7 +144,6 @@ def main():
     savedir = get_eval_savedir(
         evaldir, 'images', cmdargs.model_state, cmdargs.split
     )
-    print(f"Saving translated images to {savedir}")
 
     dump_images(
         model, data_list, cmdargs.n_eval, args.batch_size, savedir,
