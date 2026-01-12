@@ -7,7 +7,7 @@ from uvcgan2.utils.parsers import add_preset_name_parser, add_batch_size_parser
 
 def parse_cmdargs():
     parser = argparse.ArgumentParser(
-        description = '20251225_Inverted_combined_BIT2HE_duodenum_crypts_train'
+        description = '20260112_Inverted_combined_BIT2HE_muscularis-submucosa_train'
     )
 
     add_preset_name_parser(parser, 'gen',  GEN_PRESETS, 'uvcgan2')
@@ -49,7 +49,7 @@ def get_transfer_preset(cmdargs):
         return None
 
     base_model = (
-        '/home/durrlab/Desktop/Anthony/UGVSM/UVCGANv2_new/outdir/20251225_Inverted_combined_BIT2HE_duodenum_crypts_pretrain/'
+        '/home/durrlab/Desktop/Anthony/UGVSM/UVCGANv2_vHE/outdir/20260108_Inverted_combined_BIT2HE_muscularis-submucosa_pretrain/'
         'model_m(autoencoder)_d(None)'
         f"_g({GEN_PRESETS[cmdargs.gen]['model']})_pretrain-{cmdargs.gen}"
     )
@@ -158,7 +158,7 @@ args_dict = {
     f'{cmdargs.gen}-{cmdargs.head}_{cmdargs.no_pretrain}'
     f'-{cmdargs.lambda_cyc}-{cmdargs.lambda_gp}-{cmdargs.lr_gen}'
     ).replace('(', '-').replace(')', '-').replace(':', 'p'),
-    'outdir' : os.path.join(ROOT_OUTDIR, '20251225_Inverted_combined_BIT2HE_duodenum_crypts_train'),
+    'outdir' : os.path.join(ROOT_OUTDIR, '20260112_Inverted_combined_BIT2HE_muscularis-submucosa_train'),
     'log_level'  : 'DEBUG',
     'checkpoint' : 10,
 }
