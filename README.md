@@ -10,6 +10,7 @@ An end‑to‑end virtual H&E staining pipeline using **label‑free back‑illu
   <img width="2025" height="660" alt="vHE_BIT_MUSE_Figure_V5" src="https://github.com/user-attachments/assets/c97e35b8-93cc-4a91-811d-c0a5d113da1d" />
 </p>
 
+## 🖼️ Example Results — Unprocessed, Freshly Resected Human Kidney Tissue
 
 <p align="center">
     <img width="685" height="312" alt="Screenshot 2026-01-12 at 11 32 49 PM" src="https://github.com/user-attachments/assets/5e6445e1-6284-419e-94c2-4c806a956f13" />
