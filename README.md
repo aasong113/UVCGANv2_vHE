@@ -1,6 +1,6 @@
-v2: Slide‑Free Virtual H&E Staining
+**UVCGANv2_vHE: Unsupervised Slide‑Free Virtual H&E Staining**
 
-An end‑to‑end virtual H&E staining pipeline using **label‑free back‑illumination interference tomography (BIT)** and **UVCGANv2** to digitally transform raw tissue images into histology‑like H&E images—without physical sectioning or staining. BIT images are taken on a 1.15 NA, 40X Objective. FFPE-HE images are taken on a 40X Hamamatsu slide scanner. MUSE Blue (Hoechst) stains nuclei.  
+An end‑to‑end unsupervised virtual H&E staining pipeline using **label‑free back‑illumination interference tomography (BIT)** and **UVCGANv2** to digitally transform raw tissue images into histology‑like H&E images—without physical sectioning or staining. BIT images are taken on a 1.15 NA, 40X Objective. FFPE-HE images are taken on a 40X Hamamatsu slide scanner. MUSE Blue (Hoechst) stains nuclei.  
 
 ---
 
