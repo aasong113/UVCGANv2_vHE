@@ -1,93 +1,67 @@
-# UVCGAN v2: Virtual H&E Staining
-An end-to-end virtual H&E staining pipeline using label-free, back-illumination interference tomography. 
-<img width="2025" height="660" alt="vHE_BIT_MUSE_Figure_V5" src="https://github.com/user-attachments/assets/c97e35b8-93cc-4a91-811d-c0a5d113da1d" />
-Mouse Brain Tissue:
+v2: Slide‑Free Virtual H&E Staining
 
-<img width="878" height="502" alt="Screenshot 2026-01-12 at 11 24 11 PM" src="https://github.com/user-attachments/assets/b0a7e87d-4d4f-4620-bf21-0d4783ebbf14" />
-<img width="997" height="381" alt="Screenshot 2026-01-12 at 11 23 55 PM" src="https://github.com/user-attachments/assets/1880d933-5da0-4097-b7f9-b27a0c98855c" />
-Fluorescence, BIT, Virtual H&E, and Conventional FFPE-HE
-Proceedings: https://opg.optica.org/abstract.cfm?URI=NTM-2025-NTh1C.3 , PDF available in main: ntm-2025-nth1c.3.pdf
+An end‑to‑end virtual H&E staining pipeline using **label‑free back‑illumination interference tomography (BIT)** and **UVCGANv2** to digitally transform raw tissue images into histology‑like H&E images—without physical sectioning or staining.
 
-Full Manuscript in Progress. 
+---
 
-This package provides an implementation of the `UVCGAN v2: An Improved
-Cycle-Consistent GAN for Unpaired Image-to-Image Translation` applied to Virtual H&E Staining of Back Illumination Interference Tomography Images of Raw Tissue
-Original Paper: [paper][uvcgan2_paper].
+## 🖼️ Example Results — Mouse Brain Tissue
 
-`uvcgan2` builds upon the CycleGAN method for unpaired image-to-image transfer
-and improves its performance by modifying the generator, discriminator, and the
-training procedure.
+<p align="center">
+  <img width="2025" height="660" alt="vHE_BIT_MUSE_Figure_V5" src="https://github.com/user-attachments/assets/c97e35b8-93cc-4a91-811d-c0a5d113da1d" />
+</p>
 
-This README file provides brief instructions about how to set up the `uvcgan2`
-package and reproduce the paper results. To further facilitate the
-reproducibility we share the pre-trained models
-(c.f. section Pre-trained models)
 
-## Applying UVCGANv2 to Your Dataset
+<p align="center">
+    <img width="685" height="312" alt="Screenshot 2026-01-12 at 11 32 49 PM" src="https://github.com/user-attachments/assets/5e6445e1-6284-419e-94c2-4c806a956f13" />
+</p>
+**Left to right:** Fluorescence → BIT → Virtual H&E → Conventional FFPE H&E
 
-This README file mainly describes the reproduction of the `Rethinking CycleGAN`
-[paper][uvcgan2_paper] results. If you would like to apply the `uvcgan2` to
-some other dataset, please check out our accompanying repository
-[uvcgan4slats][uvcgan4slats]. It describes an application of `uvcgan` to a
-generic scientific dataset.
+<p align="center">    
+    <img width="997" height="381" alt="Zoomed results" src="https://github.com/user-attachments/assets/1880d933-5da0-4097-b7f9-b27a0c98855c" />
+</p>
 
-In short, the procedure to adapt the `uvcgan2` to your problem is as follows:
 
-1. Arrange your dataset to the format:
+---
 
-```bash
-    MUSE-BIT/          # Name of the dataset
-        trainA/
-        testA/
-    FFPE-HE/          # Name of the dataset
-        trainB/
-        testB/
+## 📄 Publication
 
-```
+**Optica NTM 2025**  
+Proceedings: https://opg.optica.org/abstract.cfm?URI=NTM-2025-NTh1C.3  
+PDF available in this repository: `ntm-2025-nth1c.3.pdf`  
 
-2. Next, take an existing training script as a starting point.
-   For instance, this one should work
-```
-scripts/.../pretrain.py
-scripts/.../train.py
-```
+**Full manuscript in preparation.**
 
-# Installation & Requirements
+---
 
-## Requirements
+## 📦 Project Overview
 
-`uvcgan2` models were trained under the official `pytorch` container
-`pytorch/pytorch:1.12.1-cuda11.3-cudnn8-runtime`. A similar training
-environment can be constructed with `conda`
-```
-conda env create -f contrib/conda_env.yaml
-```
+This repository implements:
 
-The created conda environment can be activated with
-```bash
-conda activate uvcgan2
-```
+> **UVCGAN v2: An Improved Cycle‑Consistent GAN for Unpaired Image‑to‑Image Translation**
 
-## Installation
+and applies it to **virtual H&E staining of label‑free BIT images of raw tissue**.
 
-To install the `uvcgan2` package one can simply run the following command
-```
-python3 setup.py develop --user
-```
-from the `uvcgan2` source tree.
+UVCGANv2 improves upon CycleGAN by:
+- Enhanced generator & discriminator architectures  
+- Better training stability  
+- Improved perceptual and structural preservation  
 
-## Environment Setup
+This makes it particularly well‑suited for scientific imaging tasks such as virtual histopathology.
 
-By default, `uvcgan2` will try to read datasets from the `./data` directory
-and will save trained models under the `./outdir` directory. If you would
-like to change this default behavior, set the two environment variables
-`UVCGAN2_DATA` and `UVCGAN2_OUTDIR` to the desired paths.
+Original UVCGANv2 paper:  
+[UVCGAN v2 – Rethinking CycleGAN](https://arxiv.org/abs/2010.13407)
 
-For instance, on UNIX-like system (Linux, MacOS) these variables can be
-set with:
+---
+
+## 🧪 Applying UVCGANv2 to Your Dataset
+
+To train on your own microscopy data, organize your dataset as:
 
 ```bash
-export UVCGAN2_DATA=PATH_WHERE_DATA_IS_SAVED
-export UVCGAN2_OUTDIR=PATH_TO_SAVE_MODELS_TO
-```
+MUSE-BIT/            # Label‑free BIT images
+    trainA/
+    testA/
 
+FFPE-HE/             # Ground‑truth H&E images
+    trainB/
+    testB/
