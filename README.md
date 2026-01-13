@@ -1,6 +1,11 @@
 # UVCGAN v2: Virtual H&E Staining
+An end-to-end virtual H&E staining pipeline using label-free, back-illumination interference tomography. 
 <img width="2025" height="660" alt="vHE_BIT_MUSE_Figure_V5" src="https://github.com/user-attachments/assets/c97e35b8-93cc-4a91-811d-c0a5d113da1d" />
+Mouse Brain Tissue:
 
+<img width="878" height="502" alt="Screenshot 2026-01-12 at 11 24 11 PM" src="https://github.com/user-attachments/assets/b0a7e87d-4d4f-4620-bf21-0d4783ebbf14" />
+<img width="997" height="381" alt="Screenshot 2026-01-12 at 11 23 55 PM" src="https://github.com/user-attachments/assets/1880d933-5da0-4097-b7f9-b27a0c98855c" />
+Fluorescence, BIT, Virtual H&E, and Conventional FFPE-HE
 Proceedings: https://opg.optica.org/abstract.cfm?URI=NTM-2025-NTh1C.3 , PDF available in main: ntm-2025-nth1c.3.pdf
 
 Full Manuscript in Progress. 
