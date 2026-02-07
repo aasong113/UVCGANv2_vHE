@@ -7,7 +7,7 @@ from uvcgan2.utils.parsers import add_preset_name_parser, add_batch_size_parser
 
 def parse_cmdargs():
     parser = argparse.ArgumentParser(
-        description = '20260112_Inverted_combined_BIT2HE_muscularis-submucosa_train'
+        description = '20260207_Inverted_MUSE_BIT2HE_crypts_lieberkuhn_train'
     )
 
     add_preset_name_parser(parser, 'gen',  GEN_PRESETS, 'uvcgan2')

@@ -3,9 +3,11 @@
 # E1102: self.criterion_gan is not callable (not-callable)
 
 import itertools
+import os
 import torch
 
 from torchvision.transforms import GaussianBlur, Resize
+from torchvision.utils import save_image
 
 from uvcgan2.torch.select            import (
     select_optimizer, extract_name_kwargs
@@ -45,6 +47,7 @@ def queued_forward(batch_head_model, input_image, queue, update_queue = True):
 
 class UVCGAN2(ModelBase):
     # pylint: disable=too-many-instance-attributes
+    _SAVE_DEBUG_IMAGES_EVERY_N_STEPS = 1000
 
     def _setup_images(self, _config):
         images = [
@@ -185,6 +188,8 @@ class UVCGAN2(ModelBase):
 
             if config.gradient_penalty is not None:
                 self.gp = GradientPenalty(**config.gradient_penalty)
+
+        self._train_step = 0
 
     def _set_input(self, inputs, domain):
         set_two_domain_input(self.images, inputs, domain, self.device)
@@ -444,6 +449,57 @@ class UVCGAN2(ModelBase):
             self.models.avg_gen_ba, self.models.gen_ba, self.avg_momentum
         )
 
+    @staticmethod
+    def _save_single_image(tensor, path):
+        if tensor is None:
+            return
+
+        image = tensor.detach()
+        if image.ndim == 4:
+            image = image[0]
+
+        image = image.float().cpu()
+
+        value_range = (0.0, 1.0)
+        if float(image.min()) < 0.0:
+            value_range = (-1.0, 1.0)
+
+        save_image(
+            image,
+            path,
+            normalize = True,
+            value_range = value_range,
+        )
+
+    def _maybe_save_debug_images(self):
+        if not self.is_train:
+            return
+
+        if (self._train_step % self._SAVE_DEBUG_IMAGES_EVERY_N_STEPS) != 0:
+            return
+
+        outdir = os.path.join(self.savedir, 'debug_images')
+        os.makedirs(outdir, exist_ok = True)
+
+        step = self._train_step
+
+        self._save_single_image(
+            self.images.real_a,
+            os.path.join(outdir, f'{step:07d}_real_A.png')
+        )
+        self._save_single_image(
+            self.images.fake_b,
+            os.path.join(outdir, f'{step:07d}_fake_B.png')
+        )
+        self._save_single_image(
+            self.images.real_b,
+            os.path.join(outdir, f'{step:07d}_real_B.png')
+        )
+        self._save_single_image(
+            self.images.fake_a,
+            os.path.join(outdir, f'{step:07d}_fake_A.png')
+        )
+
     def optimization_step(self):
         self.optimization_step_gen()
         self.optimization_step_disc()
@@ -451,3 +507,5 @@ class UVCGAN2(ModelBase):
         if self.avg_momentum is not None:
             self._accumulate_averages()
 
+        self._train_step += 1
+        self._maybe_save_debug_images()
