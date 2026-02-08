@@ -49,9 +49,7 @@ def get_transfer_preset(cmdargs):
         return None
 
     base_model = (
-        '/home/durrlab/Desktop/Anthony/UGVSM/UVCGANv2_vHE/outdir/20260108_Inverted_combined_BIT2HE_muscularis-submucosa_pretrain/'
-        'model_m(autoencoder)_d(None)'
-        f"_g({GEN_PRESETS[cmdargs.gen]['model']})_pretrain-{cmdargs.gen}"
+        '/home/durrlab-asong/Anthony/UVCGANv2_vHE/scripts/20260207_Inverted_MUSE_BIT2HE_crypts_lieberkuhn_newHE_data/outdir/20260207_Inverted_MUSE_BIT2HE_crypts_lieberkuhn_pretrain/model_m(autoencoder)_d(None)_g(vit-modnet)_pretrain-uvcgan2'
     )
 
     return {
@@ -61,7 +59,7 @@ def get_transfer_preset(cmdargs):
             'gen_ba' : 'encoder',
         },
         'strict'        : True,
-        'allow_partial' : False,
+        'allow_partial' : True,
         'fuzzy'         : None,
     }
 
@@ -158,7 +156,7 @@ args_dict = {
     f'{cmdargs.gen}-{cmdargs.head}_{cmdargs.no_pretrain}'
     f'-{cmdargs.lambda_cyc}-{cmdargs.lambda_gp}-{cmdargs.lr_gen}'
     ).replace('(', '-').replace(')', '-').replace(':', 'p'),
-    'outdir' : os.path.join(ROOT_OUTDIR, '20260112_Inverted_combined_BIT2HE_muscularis-submucosa_train'),
+    'outdir' : os.path.join(ROOT_OUTDIR, '20260207_Inverted_MUSE_BIT2HE_crypts_lieberkuhn_newHE_data_train'),
     'log_level'  : 'DEBUG',
     'checkpoint' : 10,
 }
