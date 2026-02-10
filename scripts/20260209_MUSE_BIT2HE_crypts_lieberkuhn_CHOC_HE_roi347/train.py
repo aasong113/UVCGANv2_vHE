@@ -7,7 +7,7 @@ from uvcgan2.utils.parsers import add_preset_name_parser, add_batch_size_parser
 
 def parse_cmdargs():
     parser = argparse.ArgumentParser(
-        description = '20260207_Inverted_MUSE_BIT2HE_crypts_lieberkuhn_train'
+        description = '20260210_Inverted_MUSE_BIT2HE_crypts_lieberkuhn_train_CHOC_HE_roi347'
     )
 
     add_preset_name_parser(parser, 'gen',  GEN_PRESETS, 'uvcgan2')
@@ -49,7 +49,7 @@ def get_transfer_preset(cmdargs):
         return None
 
     base_model = (
-        '/home/durrlab-asong/Anthony/UVCGANv2_vHE/scripts/20260207_Inverted_MUSE_BIT2HE_crypts_lieberkuhn_newHE_data/outdir/20260207_Inverted_MUSE_BIT2HE_crypts_lieberkuhn_pretrain/model_m(autoencoder)_d(None)_g(vit-modnet)_pretrain-uvcgan2'
+        '/home/durrlab/Desktop/Anthony/UGVSM/UVCGANv2_vHE/scripts/20260209_MUSE_BIT2HE_crypts_lieberkuhn_CHOC_HE_roi347/outdir/20260207_Inverted_MUSE_BIT2HE_crypts_lieberkuhn_pretrain_CHOC_HE_roi347/model_m(autoencoder)_d(None)_g(vit-modnet)_pretrain-uvcgan2/'
     )
 
     return {
@@ -156,7 +156,7 @@ args_dict = {
     f'{cmdargs.gen}-{cmdargs.head}_{cmdargs.no_pretrain}'
     f'-{cmdargs.lambda_cyc}-{cmdargs.lambda_gp}-{cmdargs.lr_gen}'
     ).replace('(', '-').replace(')', '-').replace(':', 'p'),
-    'outdir' : os.path.join(ROOT_OUTDIR, '20260207_Inverted_MUSE_BIT2HE_crypts_lieberkuhn_newHE_data_train'),
+    'outdir' : os.path.join(ROOT_OUTDIR, '20260210_Inverted_MUSE_BIT2HE_crypts_lieberkuhn_train_CHOC_HE_roi347'),
     'log_level'  : 'DEBUG',
     'checkpoint' : 10,
 }
