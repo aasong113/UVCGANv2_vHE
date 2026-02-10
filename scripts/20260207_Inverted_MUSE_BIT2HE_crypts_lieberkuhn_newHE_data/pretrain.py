@@ -7,7 +7,7 @@ from uvcgan2.utils.parsers import add_preset_name_parser, add_batch_size_parser
 
 def parse_cmdargs():
     parser = argparse.ArgumentParser(
-        description = '20260207_Inverted_MUSE_BIT2HE_crypts_lieberkuhn_pretrain'
+        description = '20260207_Inverted_MUSE_BIT2HE_crypts_lieberkuhn_pretrain_HighPass_data'
     )
     parser.add_argument(
         '--root_data_path',
@@ -72,7 +72,7 @@ args_dict = {
         'merge_type' : 'unpaired',
         'workers'    : 1,
     },
-    'epochs'        : 100,
+    'epochs'        : 50,
     'discriminator' : None,
     'generator' : {
         **GEN_PRESETS[cmdargs.gen],
@@ -107,7 +107,7 @@ args_dict = {
     'steps_per_epoch'  : 32 * 1024 // cmdargs.batch_size,
 # args
     'label'      : f'pretrain-{cmdargs.gen}',
-    'outdir'     : os.path.join(ROOT_OUTDIR, '20260207_Inverted_MUSE_BIT2HE_crypts_lieberkuhn_pretrain'),
+    'outdir'     : os.path.join(ROOT_OUTDIR, '20260207_Inverted_MUSE_BIT2HE_crypts_lieberkuhn_pretrain_HighPass_data'),
     'log_level'  : 'DEBUG',
     'checkpoint' : 25,
 }
